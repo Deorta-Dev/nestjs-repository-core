@@ -1,6 +1,6 @@
 **Idioma:** Español · [English](./README.md)
 
-# @deorta/nestjs-repository-core
+# @deorta-dev/nestjs-repository-core
 
 Librería para NestJS + Mongoose que genera, para cualquier entidad, un
 servicio de repositorio genérico (`BaseRepositoryService<T>`) con caché
@@ -16,7 +16,7 @@ Compilado y verificado con `tsc --strict` contra `@nestjs/common`,
 ## Instalación
 
 ```bash
-npm install @deorta/nestjs-repository-core
+npm install @deorta-dev/nestjs-repository-core
 ```
 
 Necesitas tener instalados (son `peerDependencies`, no se instalan solos):
@@ -28,7 +28,7 @@ npm install @nestjs/common @nestjs/mongoose mongoose class-transformer reflect-m
 ## Uso básico
 
 ```ts
-import { RepositoryOrmModule, RepositoryInject, IBaseRepositoryService } from '@deorta/nestjs-repository-core';
+import { RepositoryOrmModule, RepositoryInject, IBaseRepositoryService } from '@deorta-dev/nestjs-repository-core';
 
 // position-repository.module.ts
 export const PositionRepositoryModule = RepositoryOrmModule.register({
