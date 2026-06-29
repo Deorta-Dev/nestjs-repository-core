@@ -1,0 +1,45 @@
+{
+  "name": "@deorta/nestjs-repository-core",
+  "version": "0.1.0",
+  "description": "Genera repositorios genéricos para NestJS + Mongoose por entidad (sin crear una clase por entidad), con caché read-through con TTL y backups de solo-escritura resilientes a desconexiones.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "nestjs",
+    "mongoose",
+    "repository",
+    "orm",
+    "cache",
+    "backup",
+    "ttl"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@nestjs/common": "^9.0.0 || ^10.0.0 || ^11.0.0",
+    "@nestjs/mongoose": "^9.0.0 || ^10.0.0 || ^11.0.0",
+    "mongoose": "^7.0.0 || ^8.0.0",
+    "class-transformer": "^0.5.0",
+    "reflect-metadata": "^0.1.13 || ^0.2.0",
+    "rxjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^10.4.15",
+    "@nestjs/mongoose": "^10.1.0",
+    "@types/node": "^20.17.9",
+    "class-transformer": "^0.5.1",
+    "mongoose": "^8.9.2",
+    "reflect-metadata": "^0.1.14",
+    "rxjs": "^7.8.1",
+    "typescript": "^5.7.2"
+  }
+}
