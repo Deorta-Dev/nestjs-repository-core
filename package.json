@@ -1,6 +1,6 @@
 {
   "name": "@deorta-dev/nestjs-repository-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Genera repositorios genéricos para NestJS + Mongoose por entidad (sin crear una clase por entidad), con caché read-through con TTL y backups de solo-escritura resilientes a desconexiones.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
