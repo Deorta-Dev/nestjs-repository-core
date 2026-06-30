@@ -1,4 +1,4 @@
-import { DynamicModule, Module, Provider } from '@nestjs/common';
+import { DynamicModule, Module, Provider, Type } from '@nestjs/common';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { BaseRepositoryService } from './base-repository.service';
@@ -6,7 +6,13 @@ import { syncCheckpointSchema } from './schema/sync-checkpoint.schema';
 import { tombstoneSchema } from './schema/tombstone.schema';
 import { withCacheTtl } from './schema/with-cache-ttl';
 import { BackupSyncService } from './sync/backup-sync.service';
-import { RepositoryDynamicModule, RepositoryModuleOptions } from './types';
+import {
+    BaseOrmOptions,
+    CacheConnectionConfig,
+    PendingOpsConfig,
+    RepositoryDynamicModule,
+    RepositoryModuleOptions,
+} from './types';
 import { getBackupSyncToken, getRepositoryToken } from './utils';
 
 /** Token interno usado para rellenar posiciones opcionales del factory (cache/tombstone) cuando no aplican. */
@@ -82,8 +88,18 @@ export class RepositoryOrmModule {
                     cacheModel: Model<T> | undefined,
                     tombstoneModel: Model<any> | undefined,
                     ...backupModels: Model<T>[]
-                ) =>
-                    new BaseRepositoryService<T>(
+                ) => {
+                    const serviceArgs: [
+                        Type<T>,
+                        BaseOrmOptions,
+                        Model<T>,
+                        Model<T> | undefined,
+                        CacheConnectionConfig | undefined,
+                        Model<T>[],
+                        string[],
+                        Model<any> | undefined,
+                        PendingOpsConfig,
+                    ] = [
                         opts.entity,
                         opts.options ?? {},
                         mainModel,
@@ -93,7 +109,12 @@ export class RepositoryOrmModule {
                         backupLabels,
                         tombstoneModel,
                         opts.pendingOps ?? {},
-                    ),
+                    ];
+
+                    return opts.customService
+                        ? new opts.customService(...serviceArgs)
+                        : new BaseRepositoryService<T>(...serviceArgs);
+                },
                 inject: [mainModelToken, cacheModelToken ?? NONE_TOKEN, tombstoneModelToken ?? NONE_TOKEN, ...backupModelTokens],
             },
         ];
